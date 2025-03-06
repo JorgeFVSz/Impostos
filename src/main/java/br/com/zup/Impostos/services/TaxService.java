@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface TaxService {
     List<TaxDTO> getAllTaxes();
+    TaxDTO createTax(TaxDTO taxDTO);
 }
