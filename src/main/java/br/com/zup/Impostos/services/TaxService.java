@@ -10,4 +10,5 @@ public interface TaxService {
     List<TaxDTO> getAllTaxes();
     TaxDTO createTax(TaxDTO taxDTO);
     TaxCalculationResponseDTO calculateTax(TaxCalculationRequestDTO taxCalculationRequestDTO);
+    TaxDTO getTaxById(String id);
 }
