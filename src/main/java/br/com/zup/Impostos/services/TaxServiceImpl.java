@@ -58,4 +58,17 @@ public class TaxServiceImpl implements TaxService{
                 taxValue
         );
     }
+
+    @Override
+    public TaxDTO getTaxById(String id) {
+        Tax tax = taxRepository.findById(id)
+                .orElseThrow(() -> new TaxNotFoundException("Imposto com id" + id + "não foi encontrado"));
+
+        return new TaxDTO(
+                tax.getUuid(),
+                tax.getName(),
+                tax.getDescription(),
+                tax.getRate()
+        );
+    }
 }
