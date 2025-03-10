@@ -7,10 +7,7 @@ import br.com.zup.Impostos.services.TaxService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -35,5 +32,11 @@ public class TaxController {
     public ResponseEntity<TaxCalculationResponseDTO> calculateTax(@RequestBody TaxCalculationRequestDTO taxCalculationRequestDTO) {
         TaxCalculationResponseDTO  taxCalculationResponseDTO = taxService.calculateTax(taxCalculationRequestDTO);
         return ResponseEntity.ok(taxCalculationResponseDTO);
+    }
+
+    @GetMapping("/tipos/{id}")
+    public ResponseEntity<TaxDTO> getTaxById(@PathVariable String id) {
+        TaxDTO taxResponseDTO = taxService.getTaxById(id);
+        return ResponseEntity.ok(taxResponseDTO);
     }
 }
