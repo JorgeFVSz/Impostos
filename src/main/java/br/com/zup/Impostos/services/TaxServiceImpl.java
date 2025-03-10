@@ -26,19 +26,17 @@ public class TaxServiceImpl implements TaxService{
 
     @Override
     public TaxDTO createTax(TaxDTO taxDTO) {
-        boolean isValidTaxType = Arrays.stream(TaxType.values())
-                .anyMatch(taxType -> taxType.name().equalsIgnoreCase(taxDTO.getNome()));
-
-        if (!isValidTaxType) {
-            throw new InvalidTaxTypeException("O tipo de imposto " + taxDTO.getNome() + " não é válido. Deve ser um dos seguintes: "
-                    + Arrays.toString(TaxType.values()));
-        }
+        TaxType taxType = Arrays.stream(TaxType.values())
+                .filter(type -> type.name().equalsIgnoreCase(taxDTO.getNome()))
+                .findFirst()
+                .orElseThrow(() -> new InvalidTaxTypeException("O tipo de imposto " + taxDTO.getNome() + " não é válido. Deve ser um dos seguintes: "
+                        + Arrays.toString(TaxType.values())));
 
         if(taxRepository.existsByName(taxDTO.getNome())) {
             throw new DuplicateEntryException("Imposto com nome " + taxDTO.getNome() + " já está cadastrado");
         }
 
-        Tax tax = new Tax(taxDTO.getNome(), taxDTO.getDescricao(), taxDTO.getAliquota(), taxDTO.getTaxType());
+        Tax tax = new Tax(taxDTO.getNome(), taxDTO.getDescricao(), taxDTO.getAliquota(), taxType);
         Tax saveTax = taxRepository.save(tax);
         return new TaxDTO(saveTax.getUuid(),saveTax.getName(),saveTax.getDescription(),saveTax.getRate());
     }
