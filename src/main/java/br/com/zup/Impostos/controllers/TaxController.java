@@ -1,5 +1,7 @@
 package br.com.zup.Impostos.controllers;
 
+import br.com.zup.Impostos.dtos.TaxCalculationRequestDTO;
+import br.com.zup.Impostos.dtos.TaxCalculationResponseDTO;
 import br.com.zup.Impostos.dtos.TaxDTO;
 import br.com.zup.Impostos.services.TaxService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,5 +29,11 @@ public class TaxController {
     public ResponseEntity<TaxDTO> createTax(@RequestBody TaxDTO taxDTO) {
         TaxDTO taxResonseDTO = taxService.createTax(taxDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(taxResonseDTO);
+    }
+
+    @PostMapping("/calculo")
+    public ResponseEntity<TaxCalculationResponseDTO> calculateTax(@RequestBody TaxCalculationRequestDTO taxCalculationRequestDTO) {
+        TaxCalculationResponseDTO  taxCalculationResponseDTO = taxService.calculateTax(taxCalculationRequestDTO);
+        return ResponseEntity.ok(taxCalculationResponseDTO);
     }
 }
