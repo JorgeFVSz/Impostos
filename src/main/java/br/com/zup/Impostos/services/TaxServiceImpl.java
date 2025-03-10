@@ -1,9 +1,12 @@
 package br.com.zup.Impostos.services;
 
+import br.com.zup.Impostos.dtos.TaxCalculationRequestDTO;
+import br.com.zup.Impostos.dtos.TaxCalculationResponseDTO;
 import br.com.zup.Impostos.dtos.TaxDTO;
 import br.com.zup.Impostos.enums.TaxType;
 import br.com.zup.Impostos.exceptions.DuplicateEntryException;
 import br.com.zup.Impostos.exceptions.InvalidTaxTypeException;
+import br.com.zup.Impostos.exceptions.TaxNotFoundException;
 import br.com.zup.Impostos.models.Tax;
 import br.com.zup.Impostos.repositories.TaxRepository;
 import br.com.zup.Impostos.utils.TaxMapperUtil;
@@ -39,5 +42,20 @@ public class TaxServiceImpl implements TaxService{
         Tax tax = new Tax(taxDTO.getNome(), taxDTO.getDescricao(), taxDTO.getAliquota(), taxType);
         Tax saveTax = taxRepository.save(tax);
         return new TaxDTO(saveTax.getUuid(),saveTax.getName(),saveTax.getDescription(),saveTax.getRate());
+    }
+
+    @Override
+    public TaxCalculationResponseDTO calculateTax(TaxCalculationRequestDTO taxCalculationRequestDTO) {
+        Tax tax = taxRepository.findById(taxCalculationRequestDTO.getTipoImpostoId())
+                .orElseThrow(() -> new TaxNotFoundException("Imposto com id" + taxCalculationRequestDTO.getTipoImpostoId() + "não foi encontrado"));
+
+        double taxValue = tax.getTaxType().calculateTax(taxCalculationRequestDTO.getValorBase(), tax.getRate());
+
+        return new TaxCalculationResponseDTO(
+                tax.getName(),
+                taxCalculationRequestDTO.getValorBase(),
+                tax.getRate(),
+                taxValue
+        );
     }
 }
