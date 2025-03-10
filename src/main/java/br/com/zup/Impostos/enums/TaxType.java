@@ -1,17 +1,27 @@
 package br.com.zup.Impostos.enums;
 
 public enum TaxType {
-    IPI("Imposto sobre Produtos Industrializados"),
-    ICMS("Imposto sobre Circulação de Mercadorias e Serviços"),
-    ISS("Imposto Sobre Serviços");
+    ICMS {
+        @Override
+        public double calculateTax(double baseValue, double rate) {
+            // Fórmula específica para ICMS
+            return baseValue * (rate / 100);
+        }
+    },
+    ISS {
+        @Override
+        public double calculateTax(double baseValue, double rate) {
+            // Fórmula específica para ISS
+            return baseValue * (rate / 100);
+        }
+    },
+    IPI {
+        @Override
+        public double calculateTax(double baseValue, double rate) {
+            // Fórmula específica para IPI
+            return (baseValue * (rate / 100));
+        }
+    };
 
-    private final String description;
-
-    TaxType(String description) {
-        this.description = description;
-    }
-
-    public String getDescription() {
-        return description;
-    }
+    public abstract double calculateTax(double baseValue, double rate);
 }
