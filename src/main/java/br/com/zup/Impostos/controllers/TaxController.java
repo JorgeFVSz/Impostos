@@ -39,4 +39,10 @@ public class TaxController {
         TaxDTO taxResponseDTO = taxService.getTaxById(id);
         return ResponseEntity.ok(taxResponseDTO);
     }
+
+    @DeleteMapping("/tipos/{id}")
+    public ResponseEntity<Void> deleteTaxById(@PathVariable String id) {
+        taxService.deleteTaxById(id);
+        return ResponseEntity.noContent().build();
+    }
 }
