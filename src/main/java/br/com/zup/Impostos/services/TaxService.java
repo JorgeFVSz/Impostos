@@ -11,4 +11,5 @@ public interface TaxService {
     TaxDTO createTax(TaxDTO taxDTO);
     TaxCalculationResponseDTO calculateTax(TaxCalculationRequestDTO taxCalculationRequestDTO);
     TaxDTO getTaxById(String id);
+    void deleteTaxById(String id);
 }
