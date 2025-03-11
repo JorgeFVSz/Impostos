@@ -47,7 +47,7 @@ public class TaxServiceImpl implements TaxService{
     @Override
     public TaxCalculationResponseDTO calculateTax(TaxCalculationRequestDTO taxCalculationRequestDTO) {
         Tax tax = taxRepository.findById(taxCalculationRequestDTO.getTipoImpostoId())
-                .orElseThrow(() -> new TaxNotFoundException("Imposto com id" + taxCalculationRequestDTO.getTipoImpostoId() + "não foi encontrado"));
+                .orElseThrow(() -> new TaxNotFoundException("Imposto com id " + taxCalculationRequestDTO.getTipoImpostoId() + " não foi encontrado"));
 
         double taxValue = tax.getTaxType().calculateTax(taxCalculationRequestDTO.getValorBase(), tax.getRate());
 
@@ -62,7 +62,7 @@ public class TaxServiceImpl implements TaxService{
     @Override
     public TaxDTO getTaxById(String id) {
         Tax tax = taxRepository.findById(id)
-                .orElseThrow(() -> new TaxNotFoundException("Imposto com id" + id + "não foi encontrado"));
+                .orElseThrow(() -> new TaxNotFoundException("Imposto com id " + id + " não foi encontrado"));
 
         return new TaxDTO(
                 tax.getUuid(),
@@ -70,5 +70,14 @@ public class TaxServiceImpl implements TaxService{
                 tax.getDescription(),
                 tax.getRate()
         );
+    }
+
+    @Override
+    public void deleteTaxById(String id) {
+        if(!taxRepository.existsById(id)) {
+            throw new TaxNotFoundException("Imposto com id " + id + " não foi encontrado");
+        }
+
+        taxRepository.deleteById(id);
     }
 }
