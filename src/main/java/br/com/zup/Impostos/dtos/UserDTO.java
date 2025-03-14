@@ -1,26 +1,20 @@
-package br.com.zup.Impostos.models;
+package br.com.zup.Impostos.dtos;
 
-import jakarta.persistence.*;
-import org.hibernate.annotations.UuidGenerator;
+import br.com.zup.Impostos.models.Role;
 
-@Entity
-@Table(name = "users")
-public class User {
-    @Id
-    @UuidGenerator
+public class UserDTO {
+
     private String uuid;
     private String username;
     private String password;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "role_uuid", referencedColumnName = "uuid")
     private Role role;
 
-    public User() {
+    public UserDTO() {
     }
 
-    public User(String username, String password, Role role) {
-        this.username = username;
+    public UserDTO(String uuid, String userName, String password, Role role) {
+        this.uuid = uuid;
+        this.username = userName;
         this.password = password;
         this.role = role;
     }
@@ -29,12 +23,16 @@ public class User {
         return uuid;
     }
 
-    public String getUsername() {
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
+    public String getUserName() {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.username = userName;
     }
 
     public String getPassword() {
