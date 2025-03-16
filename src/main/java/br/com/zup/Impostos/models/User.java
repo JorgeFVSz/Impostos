@@ -9,7 +9,9 @@ public class User {
     @Id
     @UuidGenerator
     private String uuid;
+    @Column(nullable = false, unique = true)
     private String username;
+    @Column(nullable = false)
     private String password;
 
     @ManyToOne(fetch = FetchType.EAGER)

@@ -1,11 +1,15 @@
 package br.com.zup.Impostos.dtos;
 
 import br.com.zup.Impostos.enums.RoleEnum;
+import jakarta.validation.constraints.NotBlank;
 
 public class RegisterUserRequestDTO {
 
+    @NotBlank(message = "Por favor, preencha o nome de usuário")
     private String userName;
+    @NotBlank(message = "Por favor, preencha a senha")
     private String password;
+    @NotBlank(message = "Por favor, selecione um papel válido para o usuário.")
     private RoleEnum role;
 
     public RegisterUserRequestDTO() {

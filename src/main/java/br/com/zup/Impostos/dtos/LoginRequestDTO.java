@@ -1,8 +1,12 @@
 package br.com.zup.Impostos.dtos;
 
+import jakarta.validation.constraints.NotBlank;
+
 public class LoginRequestDTO {
 
+    @NotBlank(message = "Por favor, preencha o nome de usuário")
     private String userName;
+    @NotBlank(message = "Por favor, preencha a senha")
     private String password;
 
     public LoginRequestDTO() {
