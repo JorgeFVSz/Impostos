@@ -1,5 +1,6 @@
 package br.com.zup.Impostos.infra;
 
+import br.com.zup.Impostos.exceptions.CustomAccessDeniedHandler;
 import br.com.zup.Impostos.infra.jwt.JwtAuthenticationEntryPoint;
 import br.com.zup.Impostos.infra.jwt.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,9 @@ public class SecurityConfig {
     @Autowired
     private JwtAuthenticationFilter authenticationFilter;
 
+    @Autowired
+    private CustomAccessDeniedHandler accessDeniedHandler;
+
     @Bean
     public static PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -52,7 +56,8 @@ public class SecurityConfig {
                 }).httpBasic(Customizer.withDefaults());
 
         http.exceptionHandling(exception -> exception
-                .authenticationEntryPoint(authenticationEntryPoint));
+                .authenticationEntryPoint(authenticationEntryPoint)
+                .accessDeniedHandler(accessDeniedHandler));
 
         http.addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
