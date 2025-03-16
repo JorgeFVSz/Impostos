@@ -43,7 +43,7 @@ public class SecurityConfig {
 
                     authorize.requestMatchers(HttpMethod.POST,"/tipos").hasRole("ADMIN");
                     authorize.requestMatchers(HttpMethod.POST,"/calculo").hasRole("ADMIN");
-                    authorize.requestMatchers(HttpMethod.DELETE,"/tipos").hasRole("ADMIN");
+                    authorize.requestMatchers(HttpMethod.DELETE,"/tipos/{id}").hasRole("ADMIN");
 
                     authorize.requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll();
                     authorize.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll();
