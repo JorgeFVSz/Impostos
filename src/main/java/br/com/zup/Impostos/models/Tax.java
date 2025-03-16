@@ -1,10 +1,7 @@
 package br.com.zup.Impostos.models;
 
 import br.com.zup.Impostos.enums.TaxType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import org.hibernate.annotations.UuidGenerator;
 
 @Entity
@@ -12,9 +9,13 @@ public class Tax {
     @Id
     @UuidGenerator
     private String uuid;
+    @Column(nullable = false, unique = true)
     private String name;
+    @Column(nullable = false)
     private String description;
+    @Column(nullable = false)
     private Double rate;
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private TaxType taxType;
 

@@ -4,6 +4,7 @@ import br.com.zup.Impostos.dtos.TaxCalculationRequestDTO;
 import br.com.zup.Impostos.dtos.TaxCalculationResponseDTO;
 import br.com.zup.Impostos.dtos.TaxDTO;
 import br.com.zup.Impostos.services.TaxService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,13 +24,13 @@ public class TaxController {
     }
 
     @PostMapping("/tipos")
-    public ResponseEntity<TaxDTO> createTax(@RequestBody TaxDTO taxDTO) {
+    public ResponseEntity<TaxDTO> createTax(@Valid @RequestBody TaxDTO taxDTO) {
         TaxDTO taxResonseDTO = taxService.createTax(taxDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(taxResonseDTO);
     }
 
     @PostMapping("/calculo")
-    public ResponseEntity<TaxCalculationResponseDTO> calculateTax(@RequestBody TaxCalculationRequestDTO taxCalculationRequestDTO) {
+    public ResponseEntity<TaxCalculationResponseDTO> calculateTax(@Valid @RequestBody TaxCalculationRequestDTO taxCalculationRequestDTO) {
         TaxCalculationResponseDTO  taxCalculationResponseDTO = taxService.calculateTax(taxCalculationRequestDTO);
         return ResponseEntity.ok(taxCalculationResponseDTO);
     }

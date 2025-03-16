@@ -1,11 +1,18 @@
 package br.com.zup.Impostos.dtos;
 
 import br.com.zup.Impostos.enums.TaxType;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 public class TaxDTO {
     private String id;
+    @NotBlank(message = "Por favor, preencha o nome do imposto.")
     private String nome;
+    @NotBlank(message = "Por favor, preencha a descrição do imposto.")
     private String descricao;
+    @NotNull(message = "Por favor, preencha a alíquota do imposto.")
+    @Positive(message = "A alíquota do imposto deve ser maior que zero")
     private Double aliquota;
     private TaxType taxType;
 
