@@ -18,8 +18,13 @@ import java.util.List;
 
 @Service
 public class TaxServiceImpl implements TaxService{
+
+    private final TaxRepository taxRepository;
+
     @Autowired
-    private TaxRepository taxRepository;
+    public TaxServiceImpl(TaxRepository taxRepository) {
+        this.taxRepository = taxRepository;
+    }
 
     @Override
     public List<TaxDTO> getAllTaxes() {
