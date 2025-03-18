@@ -31,6 +31,10 @@ public class User {
         return uuid;
     }
 
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
     public String getUsername() {
         return username;
     }
