@@ -26,6 +26,14 @@ public class TaxDTO {
         this.aliquota = aliquota;
     }
 
+    public TaxDTO(String id, String nome, String descricao, Double aliquota, TaxType taxType) {
+        this.id = id;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.aliquota = aliquota;
+        this.taxType = taxType;
+    }
+
     public String getId() {
         return id;
     }

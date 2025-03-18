@@ -46,7 +46,7 @@ public class TaxServiceImpl implements TaxService{
 
         Tax tax = new Tax(taxDTO.getNome(), taxDTO.getDescricao(), taxDTO.getAliquota(), taxType);
         Tax saveTax = taxRepository.save(tax);
-        return new TaxDTO(saveTax.getUuid(),saveTax.getName(),saveTax.getDescription(),saveTax.getRate());
+        return new TaxDTO(saveTax.getUuid(),saveTax.getName(),saveTax.getDescription(),saveTax.getRate(), saveTax.getTaxType());
     }
 
     @Override
