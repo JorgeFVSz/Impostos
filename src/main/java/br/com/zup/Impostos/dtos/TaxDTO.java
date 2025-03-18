@@ -1,11 +1,14 @@
 package br.com.zup.Impostos.dtos;
 
 import br.com.zup.Impostos.enums.TaxType;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 public class TaxDTO {
+
+    @Schema(hidden = true)
     private String id;
     @NotBlank(message = "Por favor, preencha o nome do imposto.")
     private String nome;
@@ -14,6 +17,7 @@ public class TaxDTO {
     @NotNull(message = "Por favor, preencha a alíquota do imposto.")
     @Positive(message = "A alíquota do imposto deve ser maior que zero")
     private Double aliquota;
+    @Schema(hidden = true)
     private TaxType taxType;
 
     public TaxDTO() {
