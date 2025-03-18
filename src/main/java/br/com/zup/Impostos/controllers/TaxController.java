@@ -14,8 +14,13 @@ import java.util.List;
 
 @RestController
 public class TaxController {
+
+    private final TaxService taxService;
+
     @Autowired
-    private TaxService taxService;
+    public TaxController(TaxService taxService) {
+        this.taxService = taxService;
+    }
 
     @GetMapping("/tipos")
     public ResponseEntity<List<TaxDTO>> getAllTaxes() {
